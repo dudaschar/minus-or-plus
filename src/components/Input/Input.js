@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { BaseInput } from './styles/Input';
+import { BaseInput } from './styles/BaseInput';
 
 function Input(props) {
   const [number, setNumber] = useState();
