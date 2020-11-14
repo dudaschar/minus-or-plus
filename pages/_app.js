@@ -5,11 +5,15 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from 'stylesUtils/globalStyles';
 import theme from 'stylesUtils/theme';
 
+import GameContainer from 'src/components/GameContainer/GameContainer';
+
 function App({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Component {...pageProps} />
+      <GameContainer>
+        <Component {...pageProps} />
+      </GameContainer>
     </ThemeProvider>
   );
 }

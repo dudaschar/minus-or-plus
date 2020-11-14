@@ -1,7 +1,9 @@
 const colors = {
-  primary: '#50aadd',
+  primary: '#5DB7A1',
+  primaryLight: '#def0ec',
   white: 'white',
-  gray: 'gray',
+  gray: '#909090',
+  dark: '#282828',
 };
 
 const spacing = {
