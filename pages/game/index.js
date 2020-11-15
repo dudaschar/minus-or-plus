@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import NewMove from 'src/components/NewMove/NewMove';
+import Results from 'src/components/Result/Result';
 
 import { StyledButton } from './styles/Button';
 import { Controls, Container, MovesContainer } from './styles/Container';
 
 function Game({ query }) {
   const { number } = query;
+  const [winner, setWinner] = useState(null);
 
   const choseAddition =  number => {
     if ((number - 1) % 3 === 0) {
@@ -19,46 +21,9 @@ function Game({ query }) {
     }
   };
 
-  const initialNumber = Number(number);
-  const addition = choseAddition(number);
-  const resultingNumber = (initialNumber + addition) / 3;
-
-  const move = {
-    player: 'computer',
-    initialNumber,
-    addition,
-    resultingNumber,
-  };
-
-  const [moves, setMoves] = useState([move]);
-
-  const handleAddition = addition => {
-    const lastResult = moves[moves.length-1].resultingNumber;
-
+  const computerMove = (lastResult) => {
     if (lastResult ===  1) {
-      return handleEnd();
-    }
-
-    const newInitialNumber = lastResult + addition;
-    const newResultingNumber = newInitialNumber / 3;
-    
-    const newMove = {
-      player: 'player',
-      initialNumber: newInitialNumber,
-      addition,
-      resultingNumber: newResultingNumber,
-    };
-
-    const computer = computerMove(newMove);
-
-    setMoves([...moves, newMove, computer]);
-  };
-
-  const computerMove = (previousMove) => {
-    const lastResult = previousMove.resultingNumber;
-
-    if (lastResult ===  1) {
-      return handleEnd();
+      return setWinner('player');
     }
 
     const newAddition = choseAddition(lastResult);
@@ -71,13 +36,40 @@ function Game({ query }) {
       resultingNumber: newResultingNumber,
     };
   };
+  const initialMove = computerMove(Number(number));
+  const [moves, setMoves] = useState([initialMove]);
 
-  const handleEnd = () => {
-    alert('You won!');
+  useEffect(() => {
+    if ((moves[moves.length-1].resultingNumber === 1) && (moves[moves.length-1].player === 'computer')) {
+      setWinner('computer');
+    }
+  }, [moves]);
+
+  const handleAddition = addition => {
+    const lastResult = moves[moves.length-1].resultingNumber;
+    const newInitialNumber = lastResult + addition;
+    const newResultingNumber = newInitialNumber / 3;
+    
+    const newMove = {
+      player: 'player',
+      initialNumber: newInitialNumber,
+      addition,
+      resultingNumber: newResultingNumber,
+    };
+
+    const computer = computerMove(newMove.resultingNumber);
+
+    if (computer) {
+      setMoves([...moves, newMove, computer]);
+    } else {
+      setMoves([...moves, newMove]);
+    }
   };
 
+  
   return (
     <Container>
+      {winner && (<Results winner={winner} />)}
       <MovesContainer>
         {moves.map((item, index) => <NewMove key={`${item.player}-${index}`} content={item} />)}
       </MovesContainer>
