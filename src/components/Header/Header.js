@@ -23,7 +23,7 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  name: PropTypes.name,
+  name: PropTypes.string,
 };
 
 export default Header;

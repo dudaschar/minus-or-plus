@@ -6,7 +6,7 @@ export const Nav = styled.nav`
   color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
-  box-shadow:0px 2px 2px ${({ theme }) => theme.colors.gray};
+  box-shadow: 0px 2px 2px ${({ theme }) => theme.colors.gray};
 `;
 
 Nav.displayName = 'Nav';
