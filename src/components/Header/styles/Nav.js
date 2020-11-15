@@ -9,6 +9,7 @@ export const Nav = styled.nav`
   box-shadow: 0px 2px 2px ${({ theme }) => theme.colors.gray};
   position: fixed;
   width: 100%;
+  z-index: 100;
 `;
 
 Nav.displayName = 'Nav';

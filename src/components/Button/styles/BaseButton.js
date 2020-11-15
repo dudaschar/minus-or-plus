@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const handleCircleButton = css`
   width: 3.5rem;
@@ -8,8 +9,8 @@ const handleCircleButton = css`
 
 export const BaseButton = styled.button`
   border: none;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme, color }) => color === 'white' ? theme.colors.white : theme.colors.primary};
+  color: ${({ theme, color }) => color === 'white' ? theme.colors.primary : theme.colors.white};
   font-size: 1.5rem;
   padding: ${({ theme }) => `${theme.spacing.small} ${theme.spacing.medium}`};
   cursor: pointer;
@@ -23,5 +24,15 @@ export const BaseButton = styled.button`
 
   ${({ variant }) => variant ===  'circle' && handleCircleButton}
 `;
+
+BaseButton.defaultProps = {
+  color: undefined,
+  variant: undefined,
+};
+
+BaseButton.propTypes = {
+  color: PropTypes.string,
+  variant: PropTypes.string,
+};
 
 BaseButton.displayName = 'BaseButton';
