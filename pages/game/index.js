@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import NewMove from 'src/components/NewMove/NewMove';
+
+import { StyledButton } from './styles/Button';
+import { Controls, Container, MovesContainer } from './styles/Container';
 
 function Game({ query }) {
   const { number } = query;
@@ -28,9 +32,77 @@ function Game({ query }) {
 
   const [moves, setMoves] = useState([move]);
 
+  const handleAddition = addition => {
+    const lastResult = moves[moves.length-1].resultingNumber;
+
+    if (lastResult ===  1) {
+      return handleEnd();
+    }
+
+    const newInitialNumber = lastResult + addition;
+    const newResultingNumber = newInitialNumber / 3;
+    
+    const newMove = {
+      player: 'player',
+      initialNumber: newInitialNumber,
+      addition,
+      resultingNumber: newResultingNumber,
+    };
+
+    const computer = computerMove(newMove);
+
+    setMoves([...moves, newMove, computer]);
+  };
+
+  const computerMove = (previousMove) => {
+    const lastResult = previousMove.resultingNumber;
+
+    if (lastResult ===  1) {
+      return handleEnd();
+    }
+
+    const newAddition = choseAddition(lastResult);
+    const newResultingNumber = (lastResult + newAddition) / 3;
+
+    return {
+      player: 'computer',
+      initialNumber: lastResult,
+      addition: newAddition,
+      resultingNumber: newResultingNumber,
+    };
+  };
+
+  const handleEnd = () => {
+    alert('You won!');
+  };
 
   return (
-    moves.map((item, index) => <NewMove key={`${item.player}-${index}`} content={item} />)
+    <Container>
+      <MovesContainer>
+        {moves.map((item, index) => <NewMove key={`${item.player}-${index}`} content={item} />)}
+      </MovesContainer>
+      
+      <Controls>
+        <StyledButton
+          variant="circle"
+          onClick={() => handleAddition(-1)}
+        >
+          -1
+        </StyledButton>
+        <StyledButton
+          variant="circle"
+          onClick={() => handleAddition(0)}
+        >
+          0
+        </StyledButton>
+        <StyledButton
+          variant="circle"
+          onClick={() => handleAddition(1)}
+        >
+          +1
+        </StyledButton>
+      </Controls>
+    </Container>
   );
 }
 
@@ -41,5 +113,11 @@ export async function getServerSideProps(context) {
     }
   };
 }
+
+Game.propTypes = {
+  query: PropTypes.shape({
+    number: PropTypes.string,
+  }).isRequired,
+};
 
 export default Game;

@@ -36,7 +36,7 @@ NewMove.propTypes = {
     initialNumber: PropTypes.number,
     addition: PropTypes.number,
     resultingNumber: PropTypes.number,
-  }),
+  }).isRequired,
 };
 
 export default NewMove;
