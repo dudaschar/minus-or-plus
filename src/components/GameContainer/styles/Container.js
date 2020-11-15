@@ -13,4 +13,5 @@ export const ContentWrapper = styled.div`
   padding: ${({ theme }) => theme.spacing.medium};
   display: flex;
   flex: 1;
+  margin-top: 5.75rem;
 `;

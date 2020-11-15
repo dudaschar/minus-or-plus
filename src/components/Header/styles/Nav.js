@@ -7,6 +7,8 @@ export const Nav = styled.nav`
   display: flex;
   align-items: center;
   box-shadow: 0px 2px 2px ${({ theme }) => theme.colors.gray};
+  position: fixed;
+  width: 100%;
 `;
 
 Nav.displayName = 'Nav';
