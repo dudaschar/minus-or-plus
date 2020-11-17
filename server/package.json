@@ -1,0 +1,9 @@
+{
+  "name": "socket-game-server",
+  "version": "0.0.1",
+  "description": "server to handle multiplayer on minus or plus game",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.0.1"
+  }
+}
