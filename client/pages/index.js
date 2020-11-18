@@ -7,6 +7,7 @@ import Game from 'src/patterns/Game/Game';
 import Results from 'src/patterns/Result/Result';
 
 import { choseAddition, createNewMove } from 'src/logic/moves';
+import { handleResult } from 'src/logic/result';
 
 function MinusOrPlus({ socket, player }) {
   const [isButtonEnabled, setButtonEnabled] = useState(false);
@@ -20,7 +21,9 @@ function MinusOrPlus({ socket, player }) {
 
   useEffect(() => {
     const lastResult = moves[moves.length - 1];
-    if (lastResult && lastResult.nextNumber === 1) {
+    const hasWinner = handleResult(moves);
+
+    if (hasWinner) {
       setWinner(lastResult.player);
     }
   }, [moves]);

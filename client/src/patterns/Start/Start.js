@@ -7,12 +7,7 @@ import Button from 'src/components/Button/Button';
 
 import { Container } from './styles/Container';
 
-function Start({
-  number,
-  handleNumberInput,
-  isButtonEnabled,
-  handleStart,
-}) {
+function Start({ number, handleNumberInput, isButtonEnabled, handleStart }) {
   return (
     <>
       <Head>
@@ -30,10 +25,7 @@ function Start({
         >
           manual
         </Button>
-        <Button
-          disabled={!isButtonEnabled}
-          onClick={() => handleStart('auto')}
-        >
+        <Button disabled={!isButtonEnabled} onClick={() => handleStart('auto')}>
           automatic
         </Button>
       </Container>
@@ -43,7 +35,7 @@ function Start({
 
 Start.propTypes = {
   isButtonEnabled: PropTypes.bool.isRequired,
-  number: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
   handleNumberInput: PropTypes.func.isRequired,
   handleStart: PropTypes.func.isRequired,
 };

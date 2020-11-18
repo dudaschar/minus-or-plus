@@ -7,14 +7,8 @@ import NewMove from 'src/components/NewMove/NewMove';
 import { StyledButton } from './styles/Button';
 import { Controls, Container, MovesContainer } from './styles/Container';
 
-function Game({
-  moves,
-  player,
-  type,
-  handleAddition,
-  nextPlayer,
-}) {
-  const shouldHaveControls = (type === 'manual') && (player === nextPlayer);
+function Game({ moves, player, type, handleAddition, nextPlayer }) {
+  const shouldHaveControls = type === 'manual' && player === nextPlayer;
 
   return (
     <>
@@ -31,24 +25,15 @@ function Game({
             />
           ))}
         </MovesContainer>
-        
+
         <Controls shouldHaveControls={shouldHaveControls}>
-          <StyledButton
-            variant="circle"
-            onClick={() => handleAddition(-1)}
-          >
+          <StyledButton variant="circle" onClick={() => handleAddition(-1)}>
             -1
           </StyledButton>
-          <StyledButton
-            variant="circle"
-            onClick={() => handleAddition(0)}
-          >
+          <StyledButton variant="circle" onClick={() => handleAddition(0)}>
             0
           </StyledButton>
-          <StyledButton
-            variant="circle"
-            onClick={() => handleAddition(1)}
-          >
+          <StyledButton variant="circle" onClick={() => handleAddition(1)}>
             +1
           </StyledButton>
         </Controls>
@@ -59,12 +44,13 @@ function Game({
 
 Game.defaultProps = {
   nextPlayer: undefined,
+  player: undefined,
 };
 
 Game.propTypes = {
   handleAddition: PropTypes.func.isRequired,
   moves: PropTypes.array.isRequired,
-  player: PropTypes.string.isRequired,
+  player: PropTypes.string,
   type: PropTypes.string.isRequired,
   nextPlayer: PropTypes.string,
 };
