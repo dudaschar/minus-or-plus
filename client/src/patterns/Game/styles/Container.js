@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 export const Container = styled.div`
   display: flex;
@@ -17,8 +18,12 @@ export const MovesContainer = styled.div`
 MovesContainer.displayName = 'MovesContainer';
 
 export const Controls = styled.div`
-  display: flex;
+  display: ${({ shouldHaveControls }) => shouldHaveControls ? 'flex' : 'none'};
   justify-content: center;
 `;
+
+Controls.propTypes = {
+  shouldHaveControls: PropTypes.bool.isRequired,
+};
 
 Controls.displayName = 'Controls';
