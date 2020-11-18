@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CatIcon } from  'src/icons/cat';
+import { CatIcon } from 'src/icons/cat';
+import { EtIcon } from 'src/icons/et';
 
 import { Nav } from './styles/Nav';
 import { TextBlock } from './styles/TextBlock';
 
 function Header({ name }) {
+  const isCatPlayer = name === 'Cat';
+
   return (
     <Nav>
-      <CatIcon />
+      {isCatPlayer ? <CatIcon /> : <EtIcon />}
       <TextBlock>
         <h3>{name}</h3>
         <p>Try to beat your adversary!</p>

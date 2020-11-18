@@ -12,17 +12,25 @@ const SERVER = 'http://localhost:8080';
 
 function App({ Component, pageProps }) {
   const [socket, setSocket] = useState(null);
+  const [player, setPlayer] = useState(null);
 
   useEffect(() => {
+    const playerListener = (player) => {
+      setPlayer(player);
+      console.log({ player });
+    };
+
     const socket = socketIOClient(SERVER);
     setSocket(socket);
+
+    socket.on('player', playerListener);
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <GameContainer>
-        <Component {...pageProps} socket={socket} />
+      <GameContainer player={player}>
+        <Component {...pageProps} socket={socket} player={player} />
       </GameContainer>
     </ThemeProvider>
   );

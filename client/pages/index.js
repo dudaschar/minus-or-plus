@@ -6,52 +6,46 @@ import Start from 'src/patterns/Start/Start';
 import Game from 'src/patterns/Game/Game';
 import Results from 'src/patterns/Result/Result';
 
-import  { choseAddition, createNewMove }  from 'src/logic/moves';
+import { choseAddition, createNewMove } from 'src/logic/moves';
 
-function MinusOrPlus({ socket }) {
+function MinusOrPlus({ socket, player }) {
   const [isButtonEnabled, setButtonEnabled] = useState(false);
   const [number, setNumber] = useState('');
   const [startGame, setStartGame] = useState(false);
   const [initialMove, setInitialMove] = useState(null);
-  const [player, setPlayer] = useState(null);
   const [nextPlayer, setNextPlayer] = useState(null);
   const [moves, setMoves] = useState([]);
   const [winner, setWinner] = useState(null);
   const [type, setType] = useState(null);
 
   useEffect(() => {
-    const lastResult = moves[moves.length-1];
+    const lastResult = moves[moves.length - 1];
     if (lastResult && lastResult.nextNumber === 1) {
       setWinner(lastResult.player);
     }
   }, [moves]);
 
-  const move = ({nextPlayer, number}) => {
+  const move = ({ nextPlayer, number }) => {
     setNumber(number);
     setNextPlayer(nextPlayer);
-    if ((type !== 'manual') && (player === nextPlayer) && (number > 1)) {
+    if (type !== 'manual' && player === nextPlayer && number > 1) {
       const additionAuto = choseAddition(number);
-      socket.emit('player move', {addition: additionAuto, number});
+      socket.emit('player move', { addition: additionAuto, number });
     }
   };
 
   useEffect(() => {
-    const initialMoveListener = ({number, nextPlayer}) => {
+    const initialMoveListener = ({ number, nextPlayer }) => {
       setInitialMove(number);
       setStartGame(true);
-      move({nextPlayer, number});
+      move({ nextPlayer, number });
     };
 
-    const playerMoveListener = ({addition, number, player, nextPlayer}) => {
-      const newMove = createNewMove({number, addition, player});
+    const playerMoveListener = ({ addition, number, player, nextPlayer }) => {
+      const newMove = createNewMove({ number, addition, player });
 
-      setMoves(moves => [...moves, newMove]);
-      move({ nextPlayer, number: newMove.nextNumber, addition});
-    };
-
-    const playerListener = (player) => {
-      setPlayer(player);
-      console.log({player});
+      setMoves((moves) => [...moves, newMove]);
+      move({ nextPlayer, number: newMove.nextNumber, addition });
     };
 
     const restartGame = () => {
@@ -61,15 +55,13 @@ function MinusOrPlus({ socket }) {
     if (socket) {
       socket.on('number to start', initialMoveListener);
       socket.on('player move', playerMoveListener);
-      socket.on('player', playerListener);
       socket.on('restart game', restartGame);
     }
-    
+
     return () => {
       if (socket) {
         socket.off('number to start', initialMoveListener);
         socket.off('player move', playerMoveListener);
-        socket.off('player', playerListener);
         socket.off('restart game', restartGame);
       }
     };
@@ -92,7 +84,7 @@ function MinusOrPlus({ socket }) {
   };
 
   const handleAddition = (addition) => {
-    socket.emit('player move', {addition, number});
+    socket.emit('player move', { addition, number });
   };
 
   const handleStart = (type) => {
@@ -111,7 +103,7 @@ function MinusOrPlus({ socket }) {
 
   return (
     <>
-      {!startGame &&  (
+      {!startGame && (
         <Start
           number={number}
           handleNumberInput={handleNumberInput}
@@ -119,7 +111,7 @@ function MinusOrPlus({ socket }) {
           handleStart={handleStart}
         />
       )}
-      {(startGame && initialMove) && (
+      {startGame && initialMove && (
         <Game
           moves={moves}
           player={player}
@@ -141,11 +133,12 @@ function MinusOrPlus({ socket }) {
 
 MinusOrPlus.defaultProps = {
   socket: {},
+  player: undefined,
 };
 
 MinusOrPlus.propTypes = {
   socket: PropTypes.object,
+  player: PropTypes.string,
 };
 
 export default memo(MinusOrPlus);
-

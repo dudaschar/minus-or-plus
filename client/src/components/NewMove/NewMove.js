@@ -1,34 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CatIcon } from  'src/icons/cat';
+import { CatIcon } from 'src/icons/cat';
+import { EtIcon } from 'src/icons/et';
 
 import { Move, MoveDetails } from './styles/Move';
 import { Container, MoveWrapper, IconWrapper } from './styles/Container';
 
 function NewMove({ content, currentPlayer }) {
-  const {
-    number,
-    addition,
-    nextNumber,
-    player,
-  } = content;
+  const { number, addition, nextNumber, player } = content;
 
   const isALocalMove = currentPlayer === player ? true : false;
-
+  const isACatPlayer = player === 'player1';
+  console.log({ player, currentPlayer });
   return (
     <Container isALocalMove={isALocalMove}>
-      <IconWrapper>
-        <CatIcon />
-      </IconWrapper>
+      <IconWrapper>{isACatPlayer ? <CatIcon /> : <EtIcon />}</IconWrapper>
       <MoveWrapper isALocalMove={isALocalMove}>
         <Move>{addition}</Move>
         <MoveDetails>
           [({addition} + {number}) / 3] = {nextNumber}
         </MoveDetails>
-        <MoveDetails>
-          {nextNumber}
-        </MoveDetails>
+        <MoveDetails>{nextNumber}</MoveDetails>
       </MoveWrapper>
     </Container>
   );
