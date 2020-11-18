@@ -5,6 +5,7 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryLight};
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 Container.displayName = 'Container';

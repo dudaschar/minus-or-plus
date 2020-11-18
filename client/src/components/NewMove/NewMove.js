@@ -6,25 +6,28 @@ import { CatIcon } from  'src/icons/cat';
 import { Move, MoveDetails } from './styles/Move';
 import { Container, MoveWrapper, IconWrapper } from './styles/Container';
 
-function NewMove({ content }) {
+function NewMove({ content, currentPlayer }) {
   const {
-    initialNumber,
+    number,
     addition,
-    resultingNumber
+    nextNumber,
+    player,
   } = content;
 
+  const isALocalMove = currentPlayer === player ? true : false;
+
   return (
-    <Container>
+    <Container isALocalMove={isALocalMove}>
       <IconWrapper>
         <CatIcon />
       </IconWrapper>
-      <MoveWrapper>
+      <MoveWrapper isALocalMove={isALocalMove}>
         <Move>{addition}</Move>
         <MoveDetails>
-          [({addition} + {initialNumber}) / 3] = {resultingNumber}
+          [({addition} + {number}) / 3] = {nextNumber}
         </MoveDetails>
         <MoveDetails>
-          {resultingNumber}
+          {nextNumber}
         </MoveDetails>
       </MoveWrapper>
     </Container>
@@ -33,10 +36,12 @@ function NewMove({ content }) {
 
 NewMove.propTypes = {
   content: PropTypes.shape({
-    initialNumber: PropTypes.number,
+    number: PropTypes.number,
     addition: PropTypes.number,
-    resultingNumber: PropTypes.number,
+    nextNumber: PropTypes.number,
+    player: PropTypes.string,
   }).isRequired,
+  currentPlayer: PropTypes.string,
 };
 
 export default NewMove;

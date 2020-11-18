@@ -19,7 +19,7 @@ function Header({ name }) {
 }
 
 Header.defaultProps = {
-  name: 'Eduarda Scharnhorst',
+  name: 'Alice',
 };
 
 Header.propTypes = {
