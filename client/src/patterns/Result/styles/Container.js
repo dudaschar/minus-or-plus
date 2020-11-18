@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: absolute;
   width: 100%;
-  left: 0;
+  position: fixed;
   top: 0;
   bottom: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: ${({ theme }) => theme.colors.primaryTransparent};
+  background: ${({ theme }) => theme.colors.primary};
 `;
 
 Container.displayName = 'Container';

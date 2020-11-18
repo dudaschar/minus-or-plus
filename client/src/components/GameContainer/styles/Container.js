@@ -12,8 +12,8 @@ Container.displayName = 'Container';
 
 export const ContentWrapper = styled.div`
   padding: ${({ theme }) => theme.spacing.medium};
+  display: flex;
   flex: 1;
-  display: block;
   flex-shrink: 0;
   margin-top: 5.75rem;
   max-width: 470px;
