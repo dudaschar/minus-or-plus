@@ -16,9 +16,13 @@ function GameContainer({ children, player }) {
   );
 }
 
+GameContainer.defaultProps = {
+  player: undefined,
+};
+
 GameContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  player: PropTypes.string.isRequired,
+  player: PropTypes.string,
 };
 
 export default GameContainer;

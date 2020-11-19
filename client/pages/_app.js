@@ -13,6 +13,7 @@ const SERVER = 'http://localhost:8080';
 function App({ Component, pageProps }) {
   const [socket, setSocket] = useState(null);
   const [player, setPlayer] = useState(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const playerListener = (player) => {
@@ -20,17 +21,30 @@ function App({ Component, pageProps }) {
       console.log({ player });
     };
 
+    const startListener = (ready) => {
+      setReady(ready);
+    };
+
     const socket = socketIOClient(SERVER);
     setSocket(socket);
 
+    socket.emit('player');
     socket.on('player', playerListener);
+    socket.on('ready to start', startListener);
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <GameContainer player={player}>
-        <Component {...pageProps} socket={socket} player={player} />
+        {player && (
+          <Component
+            {...pageProps}
+            socket={socket}
+            player={player}
+            ready={ready}
+          />
+        )}
       </GameContainer>
     </ThemeProvider>
   );

@@ -6,8 +6,15 @@ import Input from 'src/components/Input/Input';
 import Button from 'src/components/Button/Button';
 
 import { Container } from './styles/Container';
+import { Text } from './styles/Text';
 
-function Start({ number, handleNumberInput, isButtonEnabled, handleStart }) {
+function Start({
+  number,
+  handleNumberInput,
+  isButtonEnabled,
+  handleStart,
+  ready,
+}) {
   return (
     <>
       <Head>
@@ -16,7 +23,7 @@ function Start({ number, handleNumberInput, isButtonEnabled, handleStart }) {
       <Container>
         <Input
           value={number}
-          placeholder="Enter a number"
+          placeholder='Enter a number'
           onChange={handleNumberInput}
         />
         <Button
@@ -28,6 +35,7 @@ function Start({ number, handleNumberInput, isButtonEnabled, handleStart }) {
         <Button disabled={!isButtonEnabled} onClick={() => handleStart('auto')}>
           automatic
         </Button>
+        {!ready && <Text>Waiting a second player</Text>}
       </Container>
     </>
   );
@@ -35,9 +43,10 @@ function Start({ number, handleNumberInput, isButtonEnabled, handleStart }) {
 
 Start.propTypes = {
   isButtonEnabled: PropTypes.bool.isRequired,
-  number: PropTypes.number.isRequired,
+  number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   handleNumberInput: PropTypes.func.isRequired,
   handleStart: PropTypes.func.isRequired,
+  ready: PropTypes.bool.isRequired,
 };
 
 export default Start;

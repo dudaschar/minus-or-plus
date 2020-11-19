@@ -9,7 +9,7 @@ import Results from 'src/patterns/Result/Result';
 import { choseAddition, createNewMove } from 'src/logic/moves';
 import { handleResult } from 'src/logic/result';
 
-function MinusOrPlus({ socket, player }) {
+function MinusOrPlus({ socket, player, ready }) {
   const [isButtonEnabled, setButtonEnabled] = useState(false);
   const [number, setNumber] = useState('');
   const [startGame, setStartGame] = useState(false);
@@ -101,8 +101,12 @@ function MinusOrPlus({ socket, player }) {
   };
 
   useEffect(() => {
-    setButtonEnabled(Boolean(number));
-  }, [number]);
+    if (ready) {
+      setButtonEnabled(Boolean(number));
+    } else {
+      setButtonEnabled(false);
+    }
+  }, [number, ready]);
 
   return (
     <>
@@ -112,6 +116,7 @@ function MinusOrPlus({ socket, player }) {
           handleNumberInput={handleNumberInput}
           isButtonEnabled={isButtonEnabled}
           handleStart={handleStart}
+          ready={ready}
         />
       )}
       {startGame && initialMove && (
@@ -140,6 +145,7 @@ MinusOrPlus.defaultProps = {
 };
 
 MinusOrPlus.propTypes = {
+  ready: PropTypes.bool.isRequired,
   socket: PropTypes.object,
   player: PropTypes.string,
 };
