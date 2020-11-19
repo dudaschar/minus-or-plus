@@ -15,6 +15,7 @@ function Start({
   handleStart,
   ready,
 }) {
+  const invalidNumber = number <= 1 && number != '';
   return (
     <>
       <Head>
@@ -36,6 +37,7 @@ function Start({
           automatic
         </Button>
         {!ready && <Text>Waiting a second player</Text>}
+        {invalidNumber && <Text>Number should be bigger than 1!</Text>}
       </Container>
     </>
   );

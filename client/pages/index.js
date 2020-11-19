@@ -101,7 +101,9 @@ function MinusOrPlus({ socket, player, ready }) {
   };
 
   useEffect(() => {
-    if (ready) {
+    const invalidNumber = number <= 1 && number != '';
+
+    if (ready && !invalidNumber) {
       setButtonEnabled(Boolean(number));
     } else {
       setButtonEnabled(false);
