@@ -18,10 +18,11 @@ function GameContainer({ children, player }) {
 
 GameContainer.defaultProps = {
   player: undefined,
+  children: {},
 };
 
 GameContainer.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   player: PropTypes.string,
 };
 

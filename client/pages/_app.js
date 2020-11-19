@@ -18,7 +18,6 @@ function App({ Component, pageProps }) {
   useEffect(() => {
     const playerListener = (player) => {
       setPlayer(player);
-      console.log({ player });
     };
 
     const startListener = (ready) => {

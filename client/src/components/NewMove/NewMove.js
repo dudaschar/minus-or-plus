@@ -12,7 +12,6 @@ function NewMove({ content, currentPlayer }) {
 
   const isALocalMove = currentPlayer === player ? true : false;
   const isACatPlayer = player === 'player1';
-  console.log({ player, currentPlayer });
   return (
     <Container isALocalMove={isALocalMove}>
       <IconWrapper>{isACatPlayer ? <CatIcon /> : <EtIcon />}</IconWrapper>

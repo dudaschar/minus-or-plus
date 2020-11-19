@@ -27,13 +27,13 @@ function Game({ moves, player, type, handleAddition, nextPlayer }) {
         </MovesContainer>
 
         <Controls shouldHaveControls={shouldHaveControls}>
-          <StyledButton variant="circle" onClick={() => handleAddition(-1)}>
+          <StyledButton variant='circle' onClick={() => handleAddition(-1)}>
             -1
           </StyledButton>
-          <StyledButton variant="circle" onClick={() => handleAddition(0)}>
+          <StyledButton variant='circle' onClick={() => handleAddition(0)}>
             0
           </StyledButton>
-          <StyledButton variant="circle" onClick={() => handleAddition(1)}>
+          <StyledButton variant='circle' onClick={() => handleAddition(1)}>
             +1
           </StyledButton>
         </Controls>
@@ -45,13 +45,14 @@ function Game({ moves, player, type, handleAddition, nextPlayer }) {
 Game.defaultProps = {
   nextPlayer: undefined,
   player: undefined,
+  type: undefined,
 };
 
 Game.propTypes = {
   handleAddition: PropTypes.func.isRequired,
   moves: PropTypes.array.isRequired,
   player: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   nextPlayer: PropTypes.string,
 };
 

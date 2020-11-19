@@ -33,7 +33,10 @@ function MinusOrPlus({ socket, player, ready }) {
     setNextPlayer(nextPlayer);
     if (type !== 'manual' && player === nextPlayer && number > 1) {
       const additionAuto = choseAddition(number);
-      socket.emit('player move', { addition: additionAuto, number });
+      setTimeout(
+        () => socket.emit('player move', { addition: additionAuto, number }),
+        800
+      );
     }
   };
 
