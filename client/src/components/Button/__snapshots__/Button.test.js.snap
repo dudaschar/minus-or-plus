@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Component should render the component properly 1`] = `
+<DocumentFragment>
+  <button
+    class="BaseButton-vk7j35-0 jhOaS"
+  >
+    Click
+  </button>
+</DocumentFragment>
+`;
