@@ -6,8 +6,8 @@ import Start from 'src/patterns/Start/Start';
 import Game from 'src/patterns/Game/Game';
 import Results from 'src/patterns/Result/Result';
 
-import { choseAddition, createNewMove } from 'src/logic/moves';
-import { handleResult } from 'src/logic/result';
+import { choseAddition, createNewMove } from 'src/logic/moves/moves';
+import { handleResult } from 'src/logic/result/result';
 
 function MinusOrPlus({ socket, player, ready }) {
   const [isButtonEnabled, setButtonEnabled] = useState(false);
