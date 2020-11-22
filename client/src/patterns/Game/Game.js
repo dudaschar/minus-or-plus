@@ -26,17 +26,20 @@ function Game({ moves, player, type, handleAddition, nextPlayer }) {
           ))}
         </MovesContainer>
 
-        <Controls shouldHaveControls={shouldHaveControls}>
-          <StyledButton variant='circle' onClick={() => handleAddition(-1)}>
-            -1
-          </StyledButton>
-          <StyledButton variant='circle' onClick={() => handleAddition(0)}>
-            0
-          </StyledButton>
-          <StyledButton variant='circle' onClick={() => handleAddition(1)}>
-            +1
-          </StyledButton>
-        </Controls>
+        {shouldHaveControls && (
+          <Controls>
+            <StyledButton variant='circle' onClick={() => handleAddition(-1)}>
+              -1
+            </StyledButton>
+            <StyledButton variant='circle' onClick={() => handleAddition(0)}>
+              0
+            </StyledButton>
+            <StyledButton variant='circle' onClick={() => handleAddition(1)}>
+              +1
+            </StyledButton>
+          </Controls>
+        )}
+        
       </Container>
     </>
   );
