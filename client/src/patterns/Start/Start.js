@@ -15,7 +15,8 @@ function Start({
   handleStart,
   ready,
 }) {
-  const invalidNumber = number <= 1 && number != '';
+
+  const invalidNumber = Number(number) <= 1 || number === '';
   return (
     <>
       <Head>
@@ -33,7 +34,10 @@ function Start({
         >
           manual
         </Button>
-        <Button disabled={!isButtonEnabled} onClick={() => handleStart('auto')}>
+        <Button
+          disabled={!isButtonEnabled}
+          onClick={() => handleStart('auto')}
+        >
           automatic
         </Button>
         {!ready && <Text>Waiting a second player</Text>}

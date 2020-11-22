@@ -41,8 +41,8 @@ describe('Game pattern', () => {
       <Game
         moves={[]}
         player="player1"
-        type="manual"
-        nextPlayer="player2"
+        type="auto"
+        nextPlayer="player1"
         handleAddition={() => {}}
       />
     );
