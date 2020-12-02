@@ -1,3 +1,5 @@
+This app has the purpose to be a project for me to practice and learn how to use an event based architecture with socket io.
+
 ## Minus or Plus
 
 This is a game to guess the correct addition to transforming a number into a new one divisible by 3.
